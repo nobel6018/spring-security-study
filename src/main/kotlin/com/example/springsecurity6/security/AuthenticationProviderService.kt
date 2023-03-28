@@ -21,6 +21,9 @@ class AuthenticationProviderService(
         val username = authentication.name
         val password = authentication.credentials.toString()
 
+        // AuthenticationProvider에서 구현해야하는 거는 다음 두 개
+        // 1. UserDetailsService로 UserDetails 가져오고
+        // 2. Password Encoder로 비밀번호 확인한다
         val user = userDetailsService.loadUserByUsername(username)
 
         return when (user.user.algorithm) {
