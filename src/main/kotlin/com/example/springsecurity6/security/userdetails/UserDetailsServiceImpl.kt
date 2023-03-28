@@ -12,7 +12,7 @@ class UserDetailsServiceImpl(
 
     override fun loadUserByUsername(username: String): UserDetails {
         val user = userRepository.findByUsername(username)
-            ?: throw RuntimeException("There is no user where email: $username")
+            ?: throw RuntimeException("There is no user where username: $username")
 
         return CustomUserDetails(user)
     }
