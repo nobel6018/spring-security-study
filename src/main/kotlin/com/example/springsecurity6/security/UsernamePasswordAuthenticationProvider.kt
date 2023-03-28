@@ -26,7 +26,7 @@ class UsernamePasswordAuthenticationProvider(
             throw BadCredentialsException("Email or password are not correct")
         }
 
-        return UsernamePasswordAuthentication(username, password)
+        return UsernamePasswordAuthentication(username, password, userDetails.authorities)
     }
 
     override fun supports(authentication: Class<*>): Boolean {
