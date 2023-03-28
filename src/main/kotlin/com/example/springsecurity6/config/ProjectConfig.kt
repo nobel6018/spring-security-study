@@ -25,7 +25,6 @@ class ProjectConfig {
     }
 
     @Bean
-
     fun authenticationManager(authenticationConfiguration: AuthenticationConfiguration): AuthenticationManager {
         return authenticationConfiguration.authenticationManager
     }
