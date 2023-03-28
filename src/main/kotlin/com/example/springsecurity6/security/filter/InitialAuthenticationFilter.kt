@@ -1,6 +1,7 @@
 package com.example.springsecurity6.security.filter
 
 import com.example.springsecurity6.security.UsernamePasswordAuthentication
+import com.fasterxml.jackson.databind.ObjectMapper
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
 import jakarta.servlet.FilterChain
@@ -20,6 +21,9 @@ class InitialAuthenticationFilter : OncePerRequestFilter() {
     @Autowired
     private lateinit var manager: AuthenticationManager
 
+    @Autowired
+    private lateinit var objectMapper: ObjectMapper
+
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
@@ -35,7 +39,7 @@ class InitialAuthenticationFilter : OncePerRequestFilter() {
 
         val after15MinInSec = (System.currentTimeMillis() / 1000) + 900
         val authorities = authentication.authorities.map { it.authority }
-        val jwt = Jwts.builder()
+        val accessToken = Jwts.builder()
             .addClaims(mapOf("type" to "accessToken"))
             .addClaims(mapOf("username" to username))
             .addClaims(mapOf("role" to "user"))
@@ -53,11 +57,16 @@ class InitialAuthenticationFilter : OncePerRequestFilter() {
             .signWith(key)
             .compact()
 
-        response.setHeader("AccessToken", jwt)
-        response.addHeader("RefreshToken", refreshToken)
+        response.contentType = "application/json"
+        response.writer.write(objectMapper.writeValueAsString(JwtResponse(accessToken, refreshToken)))
     }
 
     override fun shouldNotFilter(request: HttpServletRequest): Boolean {
         return !request.servletPath.equals("/v1/login")
     }
+
+    class JwtResponse(
+        val accessToken: String,
+        val refreshToken: String,
+    )
 }
