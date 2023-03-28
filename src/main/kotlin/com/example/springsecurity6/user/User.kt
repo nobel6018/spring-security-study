@@ -16,14 +16,6 @@ class User(
     @Column(nullable = false)
     val password: String,
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    val algorithm: ALGORITHM,
-
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     val authorities: List<Authority> = mutableListOf(),
 )
-
-enum class ALGORITHM {
-    BCRYPT, SCRYPT,
-}

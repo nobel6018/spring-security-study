@@ -11,3 +11,5 @@ spring:
   sql:
     init:
       mode: never
+
+jwt.signing.key: "zLSpd6KWsdcZgZW9uSReWOpBZ6zEBrTIIkRJBJPIVhpHQVczmhfTwQv53GThzBq8AOtuEkMwe8T5GgthXnTcJYqKZoTDhEurJdQb65GPW7ZTcY4q2ZkTlpjco5qTenDNjWUP0SSeKaufepa_0nn8RrTS"
