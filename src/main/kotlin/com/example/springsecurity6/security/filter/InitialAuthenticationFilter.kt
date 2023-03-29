@@ -37,23 +37,23 @@ class InitialAuthenticationFilter : OncePerRequestFilter() {
 
         val key = Keys.hmacShaKeyFor(signingKey.toByteArray())
 
-        val after15MinInSec = (System.currentTimeMillis() / 1000) + 900
+        val in15MinInSec = (System.currentTimeMillis() / 1000) + 900
         val authorities = authentication.authorities.map { it.authority }
         val accessToken = Jwts.builder()
             .addClaims(mapOf("type" to "accessToken"))
             .addClaims(mapOf("username" to username))
             .addClaims(mapOf("role" to "user"))
             .addClaims(mapOf("authorities" to authorities))
-            .addClaims(mapOf("exp" to after15MinInSec))
+            .addClaims(mapOf("exp" to in15MinInSec))
             .signWith(key)
             .compact()
 
-        val after2WeeksInSec = (System.currentTimeMillis() / 1000) + 1_209_600
+        val in2WeeksInSec = (System.currentTimeMillis() / 1000) + 1_209_600
         val refreshToken = Jwts.builder()
             .addClaims(mapOf("type" to "refreshToken"))
             .addClaims(mapOf("username" to username))
             .addClaims(mapOf("role" to "user"))
-            .addClaims(mapOf("exp" to after2WeeksInSec))
+            .addClaims(mapOf("exp" to in2WeeksInSec))
             .signWith(key)
             .compact()
 
