@@ -12,4 +12,4 @@ spring:
     init:
       mode: never
 
-jwt.signing.key: "zLSpd6KWsdcZgZW9uSReWOpBZ6zEBrTIIkRJBJPIVhpHQVczmhfTwQv53GThzBq8AOtuEkMwe8T5GgthXnTcJYqKZoTDhEurJdQb65GPW7ZTcY4q2ZkTlpjco5qTenDNjWUP0SSeKaufepa_0nn8RrTS"
+jwt.signing.key: "f1da3383157397f4840b512b462ac11e363f6905233e4c242d6294f4f627d45619d7674585ce35d7afabff6f996d8a28430923f0f5a97699f240d125734aa71e"
